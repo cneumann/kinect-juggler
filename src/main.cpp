@@ -5,6 +5,8 @@
 #include <vrj/Kernel/Kernel.h>
 #include <vrj/vrjParam.h>
 
+#include "VRJOgreDummyApp.hpp"
+
 namespace
 {
     typedef std::vector<std::string> string_list_type;
@@ -147,7 +149,13 @@ main(int argc, char* argv[])
             std::exit(EXIT_FAILURE);
         }
 
+        VRJOgreDummyApp app(kernel);
+
+        kernel->setApplication(&app);
+
         kernel->waitForKernelStop();
+
+        kernel->setApplication(NULL);
     }
 
     return EXIT_SUCCESS;

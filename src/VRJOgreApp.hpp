@@ -1,7 +1,18 @@
 
+#ifndef VRJOGREAPP_HPP_GUARD
+#define VRJOGREAPP_HPP_GUARD
+
 #include <boost/noncopyable.hpp>
 
 #include <vrj/Draw/OpenGL/App.h>
+
+// forward declarations
+
+namespace Ogre
+{
+    class Log;
+    class Root;
+}
 
 
 class VRJOgreApp : public vrj::opengl::App,
@@ -30,9 +41,14 @@ class VRJOgreApp : public vrj::opengl::App,
     virtual bool  configCanHandle   (jccl::ConfigElementPtr cfg);
 
   protected:
-    explicit  VRJOgreApp(void);
-    virtual  ~VRJOgreApp(void) = 0;
+    explicit  VRJOgreApp(vrj::Kernel* kernel);
+    virtual  ~VRJOgreApp(void               ) = 0;
 
     virtual bool  configAdd   (jccl::ConfigElementPtr cfg);
     virtual bool  configRemove(jccl::ConfigElementPtr cfg);
+
+    Ogre::Root* root_;
+    Ogre::Log*  log_;
 };
+
+#endif // VRJOGREAPP_HPP_GUARD

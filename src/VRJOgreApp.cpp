@@ -3,6 +3,62 @@
 
 #include <gadget/Type/Position/PositionUnitConversion.h>
 
+#include <OGRE/OgreLog.h>
+#include <OGRE/OgreRoot.h>
+
+#include <vpr/Util/Debug.h>
+
+namespace
+{
+    Ogre::String const ogreLogName("VRJOgreApp.log");
+
+    class VPROgreLogListener : public Ogre::LogListener
+    {
+      public:
+        virtual void messageLogged(Ogre::String const&   message,
+                                   Ogre::LogMessageLevel lml,
+                                   bool                  maskDebug,
+                                   Ogre::String const&   logName  );
+    };
+
+    /* virtual */ void
+    VPROgreLogListener::messageLogged(Ogre::String const&   message,
+                                      Ogre::LogMessageLevel lml,
+                                      bool                  maskDebug,
+                                      Ogre::String const&   logName  )
+    {
+        if(logName == ogreLogName)
+        {
+            switch(lml)
+            {
+            case Ogre::LML_TRIVIAL:
+            {
+                vprDEBUG(vprDBG_ALL, vprDBG_VERB_LVL)
+                    << message << vprDEBUG_FLUSH;
+            }
+            break;
+
+            case Ogre::LML_NORMAL:
+            {
+                vprDEBUG(vprDBG_ALL, vprDBG_WARNING_LVL)
+                    << message << vprDEBUG_FLUSH;
+            }
+            break;
+
+            case Ogre::LML_CRITICAL:
+            {
+                vprDEBUG(vprDBG_ALL, vprDBG_CRITICAL_LVL)
+                    << message << vprDEBUG_FLUSH;
+            }
+                break;
+            }
+        }
+    }
+
+    VPROgreLogListener ogreLogListener;
+}
+
+
 /* virtual */ void
 VRJOgreApp::init(void)
 {
@@ -11,6 +67,23 @@ VRJOgreApp::init(void)
 /* virtual */ void
 VRJOgreApp::apiInit(void)
 {
+    root_ = new Ogre::Root();
+    log_  = Ogre::LogManager::getSingleton().createLog(ogreLogName,
+                                                       false,
+                                                       true,
+                                                       true);
+    log_->addListener(&ogreLogListener);
+
+    Ogre::RenderSystemList const&          rsList = root_->getAvailableRenderers();
+    Ogre::RenderSystemList::const_iterator rsIt   = rsList.begin();
+    
+    for(std::size_t i = 0; rsIt != rsList.end(); ++rsIt, ++i)
+    {
+        std::ostringstream oss;
+        oss << i << ": " << (*rsIt)->getName();
+
+        log_->logMessage(oss.str());
+    }
 }
 
 /* virtual */ void
@@ -66,6 +139,13 @@ VRJOgreApp::contextClose(void)
 /* virtual */ void
 VRJOgreApp::exit(void)
 {
+    log_->removeListener(&ogreLogListener);
+
+    delete log_;
+    log_ = NULL;
+
+    delete root_;
+    root_ = NULL;
 }
 
 /* virtual */ float
@@ -81,8 +161,8 @@ VRJOgreApp::configCanHandle(jccl::ConfigElementPtr cfg)
 }
 
 /* explicit */
-VRJOgreApp::VRJOgreApp(void)
-    : vrj::opengl::App  (),
+VRJOgreApp::VRJOgreApp(vrj::Kernel* kernel)
+    : vrj::opengl::App  (kernel),
       boost::noncopyable()
 {
 }
