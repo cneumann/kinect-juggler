@@ -1,0 +1,6 @@
+
+- f13 cluster (e.g. cubicle machines):
+  % mkdir build.f13
+  % cd build.f13
+  % env FLAGPOLL_PATH=/tools/xml-cppdom/latest/usr/lib64/flagpoll:/tools/gmtl/latest/usr/share/flagpoll:/tools/vrjuggler/latest/usr/lib64/flagpoll cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+  % make -j6
