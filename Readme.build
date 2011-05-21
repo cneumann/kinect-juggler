@@ -2,5 +2,24 @@
 - f13 cluster (e.g. cubicle machines):
   % mkdir build.f13
   % cd build.f13
-  % env FLAGPOLL_PATH=/tools/xml-cppdom/latest/usr/lib64/flagpoll:/tools/gmtl/latest/usr/share/flagpoll:/tools/vrjuggler/latest/usr/lib64/flagpoll cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+  % env FLAGPOLL_PATH=/tools/xml-cppdom/latest/usr/lib64/flagpoll:/tools/gmtl/latest/usr/share/flagpoll:/tools/vrjuggler/latest/usr/lib64/flagpoll cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOGRE_HOME=/tools/ogre/latest/usr
   % make -j6
+
+
+
+### building prereqs ###
+
+OGRE
+====
+
+hg clone http://bitbucket.org/sinbad/ogre ogre.hg
+cd ogre.hg
+hg update v1-7-3
+
+cd ..
+mkdir build
+cd build
+
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=<install_dir> ../ogre.hg
+make
+make install
