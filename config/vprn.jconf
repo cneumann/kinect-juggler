@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?org-vrjuggler-jccl-settings configuration.version="3.0"?>
+<configuration xmlns="http://www.vrjuggler.org/jccl/xsd/3.0/configuration" name="/store/home/christian/vrpn.jconf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vrjuggler.org/jccl/xsd/3.0/configuration http://www.vrjuggler.org/jccl/xsd/3.0/configuration.xsd">
+   <elements>
+      <input_manager name="InputManager" version="2">
+         <driver>VRPN_drv</driver>
+      </input_manager>
+      <vrpn name="VRPN" version="2">
+         <tracker_server>Tracker0@10.1.25.123</tracker_server>
+         <button_server>Button0@localhost</button_server>
+         <analog_server>Analog@localhost</analog_server>
+         <tracker_count>24</tracker_count>
+         <button_count>0</button_count>
+         <analog_count>0</analog_count>
+         <min>-1.0</min>
+         <max>1.0</max>
+      </vrpn>
+      <!--OpenNI Reports 24 skeleton points as follows
+           0    Head              12  Right Elbow
+           1    Neck              13  Right Wrist
+           2    Torso             14  Right Hand
+           3    Waist             15  Right Fingertip
+           4    Left Collar       16  Left Hip
+           5    Left Shoulder     17  Left Knee
+           6    Left Elbow        18  Left Ankle
+           7    Left Wrist        19  Left Foot
+           8    Left Hand         20  Right Hip
+           9    Left Fingertip    21  Right Knee
+           10   Right Collar      22  Right Ankle
+           11   Right Shoulder    23  Right Foot
+
+          Obtained from: http://projects.ict.usc.edu/mxr/faast/
+      -->
+      <position_proxy name="HeadProxy0" version="1">
+         <device>VRPN</device>
+         <unit>0</unit>
+      </position_proxy>
+      <position_proxy name="NeckProxy0" version="1">
+         <device>VRPN</device>
+         <unit>1</unit>
+      </position_proxy>
+      <position_proxy name="TorsoProxy0" version="1">
+         <device>VRPN</device>
+         <unit>2</unit>
+      </position_proxy>
+      <position_proxy name="WaistProxy0" version="1">
+         <device>VRPN</device>
+         <unit>3</unit>
+      </position_proxy>
+      <position_proxy name="LeftCollarProxy0" version="1">
+         <device>VRPN</device>
+         <unit>4</unit>
+      </position_proxy>
+      <position_proxy name="LeftShoulderProxy0" version="1">
+         <device>VRPN</device>
+         <unit>5</unit>
+      </position_proxy>
+      <position_proxy name="LeftElbowProxy0" version="1">
+         <device>VRPN</device>
+         <unit>6</unit>
+      </position_proxy>
+      <position_proxy name="LeftWristProxy0" version="1">
+         <device>VRPN</device>
+         <unit>7</unit>
+      </position_proxy>
+      <position_proxy name="LeftHandProxy0" version="1">
+         <device>VRPN</device>
+         <unit>8</unit>
+      </position_proxy>
+      <position_proxy name="LeftFingertipProxy0" version="1">
+         <device>VRPN</device>
+         <unit>9</unit>
+      </position_proxy>
+      <position_proxy name="RightCollarProxy0" version="1">
+         <device>VRPN</device>
+         <unit>10</unit>
+      </position_proxy>
+      <position_proxy name="RightShoulderProxy0" version="1">
+         <device>VRPN</device>
+         <unit>11</unit>
+      </position_proxy>
+      <position_proxy name="RightElbowProxy0" version="1">
+         <device>VRPN</device>
+         <unit>12</unit>
+      </position_proxy>
+      <position_proxy name="RightWristProxy0" version="1">
+         <device>VRPN</device>
+         <unit>13</unit>
+      </position_proxy>
+      <position_proxy name="RightHandProxy0" version="1">
+         <device>VRPN</device>
+         <unit>14</unit>
+      </position_proxy>
+      <position_proxy name="RightFingertipProxy0" version="1">
+         <device>VRPN</device>
+         <unit>15</unit>
+      </position_proxy>
+      <position_proxy name="LeftHipProxy0" version="1">
+         <device>VRPN</device>
+         <unit>16</unit>
+      </position_proxy>
+      <position_proxy name="LeftKneeProxy0" version="1">
+         <device>VRPN</device>
+         <unit>17</unit>
+      </position_proxy>
+      <position_proxy name="LeftAnkleProxy0" version="1">
+         <device>VRPN</device>
+         <unit>18</unit>
+      </position_proxy>
+      <position_proxy name="LeftFootProxy0" version="1">
+         <device>VRPN</device>
+         <unit>19</unit>
+      </position_proxy>
+      <position_proxy name="RightHipProxy0" version="1">
+         <device>VRPN</device>
+         <unit>20</unit>
+      </position_proxy>
+      <position_proxy name="RightKneeProxy0" version="1">
+         <device>VRPN</device>
+         <unit>21</unit>
+      </position_proxy>
+      <position_proxy name="RightAnkleProxy0" version="1">
+         <device>VRPN</device>
+         <unit>22</unit>
+      </position_proxy>
+      <position_proxy name="RightFootProxy0" version="1">
+         <device>VRPN</device>
+         <unit>23</unit>
+      </position_proxy>
+   </elements>
+</configuration>
+
