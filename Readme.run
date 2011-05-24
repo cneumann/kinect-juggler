@@ -1,0 +1,4 @@
+
+in build dir:
+
+env JCCL_DEFINITION_PATH=../config src/kinect-juggler ../config/vrjogreapp.jconf /tools/vrjuggler/3.0.0/usr/share/vrjuggler/data/configFiles/standalone.jconf
