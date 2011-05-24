@@ -5,12 +5,14 @@
 #include <boost/noncopyable.hpp>
 
 #include <vrj/Draw/OpenGL/App.h>
+#include <vrj/Draw/OpenGL/ContextData.h>
 
 // forward declarations
 
 namespace Ogre
 {
     class Log;
+    class RenderWindow;
     class Root;
 }
 
@@ -41,14 +43,22 @@ class VRJOgreApp : public vrj::opengl::App,
     virtual bool  configCanHandle   (jccl::ConfigElementPtr cfg);
 
   protected:
+    struct ContextInfo
+    {
+        Ogre::RenderWindow* win_;
+    };
+
+
     explicit  VRJOgreApp(vrj::Kernel* kernel);
     virtual  ~VRJOgreApp(void               ) = 0;
 
     virtual bool  configAdd   (jccl::ConfigElementPtr cfg);
     virtual bool  configRemove(jccl::ConfigElementPtr cfg);
 
-    Ogre::Root* root_;
-    Ogre::Log*  log_;
+    std::string pluginsConfigFile_;
+
+    vrj::opengl::ContextData<ContextInfo> contextInfo_;
+    Ogre::Root*                           root_;
 };
 
 #endif // VRJOGREAPP_HPP_GUARD

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?org-vrjuggler-jccl-settings definition.version="3.1"?>
+<definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.vrjuggler.org/jccl/xsd/3.1/definition" name="vrjogreapp" icon_path="jar:file:${VJ_BASE_DIR}/bin/beans/ProxyEditor.jar!/org/vrjuggler/vrjconfig/customeditors/proxyeditor/images/position64.jpg" xsi:schemaLocation="http://www.vrjuggler.org/jccl/xsd/3.1/definition http://www.vrjuggler.org/jccl/xsd/3.1/definition.xsd">
+  <definition_version version="1" label="VRJOgreApp">
+    <abstract>false</abstract>
+    <help>Configuration for the VRJuggler Ogre Application base class.</help>
+    <parent/>
+    <category>Application</category>
+    <property valuetype="string" variable="false" name="plugins_config">
+      <help>File containing OGRE plugin configuration.</help>
+      <value label="Plugins configuration file" defaultvalue="ogreplugins.cfg"/>
+    </property>
+  </definition_version>
+</definition>
