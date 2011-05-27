@@ -10,7 +10,8 @@ class VRJOgreDummyApp : public VRJOgreApp
     explicit  VRJOgreDummyApp(vrj::Kernel* kernel);
     virtual  ~VRJOgreDummyApp(void               );
 
-    virtual void draw(void);
+    virtual void contextInit(void);
+    virtual void draw       (void);
 };
 
 #endif // VRJOGREDUMMYAPP_HPP_GUARD

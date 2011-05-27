@@ -11,9 +11,12 @@
 
 namespace Ogre
 {
+    class Camera;
     class Log;
     class RenderWindow;
     class Root;
+    class SceneManager;
+    class Viewport;
 }
 
 
@@ -46,6 +49,8 @@ class VRJOgreApp : public vrj::opengl::App,
     struct ContextInfo
     {
         Ogre::RenderWindow* win_;
+        Ogre::Camera*       camera_;
+        Ogre::Viewport*     viewport_;
     };
 
 
@@ -59,6 +64,7 @@ class VRJOgreApp : public vrj::opengl::App,
 
     vrj::opengl::ContextData<ContextInfo> contextInfo_;
     Ogre::Root*                           root_;
+    Ogre::SceneManager*                   sm_;
 };
 
 #endif // VRJOGREAPP_HPP_GUARD

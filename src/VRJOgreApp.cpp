@@ -1,14 +1,22 @@
 
 #include "VRJOgreApp.hpp"
 
+// system header
+
 #include <gadget/Type/Position/PositionUnitConversion.h>
 #include <jccl/Config/ConfigElement.h>
 #include <vpr/Util/Debug.h>
+#include <vrj/Draw/OpenGL/Window.h>
 
+#include <OGRE/OgreCamera.h>
 #include <OGRE/OgreLog.h>
 #include <OGRE/OgreRenderWindow.h>
 #include <OGRE/OgreRoot.h>
+#include <OGRE/OgreViewport.h>
 
+// project header
+
+#include <OgreUtils.hpp>
 
 namespace
 {
@@ -16,6 +24,7 @@ namespace
                                               "DBG_OGRE", "OGRE: ");
     Ogre::String const       ogreLogName     ("VRJOgreApp.log");
     Ogre::String const       ogreRenderSystem("OpenGL Rendering Subsystem");
+    Ogre::String const       ogreSceneMgrName("VRJOgreAppSceneManager");
 
     /* Log listener to route OGRE log through VRJuggler logging system.
      */
@@ -98,6 +107,13 @@ VRJOgreApp::contextInit(void)
 
     ContextInfo* ctxInfo = &(*contextInfo_);
     ctxInfo->win_ = root_->createRenderWindow("OGRE Render Window", 500, 500, false, &windowOpts);
+
+    sm_ = root_->createSceneManager(Ogre::ST_GENERIC, ogreSceneMgrName);
+
+    ctxInfo->camera_   = sm_->createCamera("VRJOgreAppCamera");
+
+    ctxInfo->viewport_ = ctxInfo->win_->addViewport(ctxInfo->camera_);
+    ctxInfo->viewport_->setClearEveryFrame(false);
 }
 
 /* virtual */ void
@@ -118,6 +134,8 @@ VRJOgreApp::intraFrame(void)
 /* virtual */ void
 VRJOgreApp::bufferPreDraw(void)
 {
+    glClearColor(0.f, 0.f, 0.f, 0.f);
+    glClear     (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 /* virtual */ void
@@ -128,6 +146,53 @@ VRJOgreApp::contextPreDraw(void)
 /* virtual */ void
 VRJOgreApp::draw(void)
 {
+    vrj::opengl::DrawManager* dm      = dynamic_cast<vrj::opengl::DrawManager*>(getDrawManager());
+    vrj::opengl::UserData*    ud      = dm->currentUserData();
+    ContextInfo*              ctxInfo = &(*contextInfo_);
+
+    {
+        int win_left;
+        int win_bottom;
+        int win_width;
+        int win_height;
+
+        ud->getGlWindow()->getOriginSize(win_left, win_bottom, win_width, win_height);
+
+        ctxInfo->win_->resize(win_width, win_height);
+    }
+
+    {
+        float vp_left;
+        float vp_bottom;
+        float vp_width;
+        float vp_height;
+
+        ud->getViewport()->getOriginAndSize(vp_left,  vp_bottom, vp_width, vp_height);
+
+        ctxInfo->viewport_->setDimensions  (vp_left,  vp_bottom, vp_width, vp_height);
+    }
+
+    vrj::ProjectionPtr  projection = ud->getProjection();
+    const vrj::Frustum& frustum    = ud->getProjection()->getFrustum();
+
+    Ogre::Matrix4 viewMatrix = MatrixUtils::fromGMTL         (projection->getViewMatrix());
+    Ogre::Matrix4 projMatrix = MatrixUtils::makeFrustumMatrix(frustum);
+
+    ctxInfo->camera_->setCustomViewMatrix      (true, viewMatrix);
+    ctxInfo->camera_->setCustomProjectionMatrix(true, projMatrix);
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+
+    ctxInfo->win_->update(false);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
 }
 
 /* virtual */ void
@@ -184,7 +249,8 @@ VRJOgreApp::VRJOgreApp(vrj::Kernel* kernel)
     : vrj::opengl::App  (kernel),
       boost::noncopyable(),
       pluginsConfigFile_("ogreplugins.cfg"),
-      root_             (NULL)
+      root_             (NULL),
+      sm_               (NULL)
 {
 }
 
