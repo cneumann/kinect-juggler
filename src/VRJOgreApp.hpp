@@ -17,7 +17,7 @@ namespace Ogre
     class Root;
     class SceneManager;
     class Viewport;
-}
+} // namespace Ogre
 
 
 class VRJOgreApp : public vrj::opengl::App,
