@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?org-vrjuggler-jccl-settings definition.version="3.1"?>
+<definition xmlns="http://www.vrjuggler.org/jccl/xsd/3.1/definition" name="bone" icon_path="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vrjuggler.org/jccl/xsd/3.1/definition http://www.vrjuggler.org/jccl/xsd/3.1/definition.xsd">
+   <definition_version version="1" label="Bone">
+      <abstract>false</abstract>
+      <help />
+      <category>/</category>
+      <property valuetype="string" variable="false" name="ogre_name">
+         <help />
+         <value label="Ogre_name" defaultvalue="default_bone" />
+      </property>
+      <property valuetype="configelementpointer" variable="false" name="proxy">
+         <help />
+         <value label="Proxy" />
+         <allowed_type>alias</allowed_type>
+         <allowed_type>position_proxy</allowed_type>
+      </property>
+      <upgrade_transform />
+   </definition_version>
+</definition>
+
