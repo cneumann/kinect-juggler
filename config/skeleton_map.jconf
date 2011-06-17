@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?org-vrjuggler-jccl-settings configuration.version="3.0"?>
+<configuration xmlns="http://www.vrjuggler.org/jccl/xsd/3.0/configuration" name="/home/christian/software/kinect_projects/kinect-juggler.git/config/skeleton_map.jconf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vrjuggler.org/jccl/xsd/3.0/configuration http://www.vrjuggler.org/jccl/xsd/3.0/configuration.xsd">
+   <elements>
+      <skeleton name="SklMap" version="1">
+         <node>
+            <bone name="Head" version="1">
+               <ogre_name>Head</ogre_name>
+               <proxy>HeadProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Root" version="1">
+               <ogre_name>Root</ogre_name>
+               <proxy>WaistProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Waist" version="1">
+               <ogre_name>Waist</ogre_name>
+               <proxy>WaistProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Stomach" version="1">
+               <ogre_name>Stomach</ogre_name>
+               <proxy>TorsoProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Chest" version="1">
+               <ogre_name>Chest</ogre_name>
+               <proxy>TorsoProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Humerus.L" version="1">
+               <ogre_name>Humerus.L</ogre_name>
+               <proxy>LeftShoulderProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Humerus.R" version="1">
+               <ogre_name>Humerus.R</ogre_name>
+               <proxy>RightShoulderProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Ulna.L" version="1">
+               <ogre_name>Ulna.L</ogre_name>
+               <proxy>LeftElbowProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Ulna.R" version="1">
+               <ogre_name>Ulna.R</ogre_name>
+               <proxy>RightElbowProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Thigh.L" version="1">
+               <ogre_name>Thigh.L</ogre_name>
+               <proxy>LeftHipProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Thigh.R" version="1">
+               <ogre_name>Thigh.R</ogre_name>
+               <proxy>RightHipProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Calf.L" version="1">
+               <ogre_name>Calf.L</ogre_name>
+               <proxy>LeftKneeProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Calf.R" version="1">
+               <ogre_name>Calf.R</ogre_name>
+               <proxy>RightKneeProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Clavicle.L" version="1">
+               <ogre_name>Clavicle.L</ogre_name>
+               <proxy>LeftCollarProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Clavicle.R" version="1">
+               <ogre_name>Clavicle.R</ogre_name>
+               <proxy>RightCollarProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Neck" version="1">
+               <ogre_name>Neck</ogre_name>
+               <proxy>NeckProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Hand.L" version="1">
+               <ogre_name>Hand.L</ogre_name>
+               <proxy>LeftWristProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Hand.R" version="1">
+               <ogre_name>Hand.R</ogre_name>
+               <proxy>RightWristProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Foot.L" version="1">
+               <ogre_name>Foot.L</ogre_name>
+               <proxy>LeftAnkleProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Foot.R" version="1">
+               <ogre_name>Foot.R</ogre_name>
+               <proxy>RightAnkleProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Toe.L" version="1">
+               <ogre_name>Toe.L</ogre_name>
+               <proxy>LeftFootProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="Toe.R" version="1">
+               <ogre_name>Toe.R</ogre_name>
+               <proxy>RightFootProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="ThumbProx.L" version="1">
+               <ogre_name>ThumbProx.L</ogre_name>
+               <proxy>LeftHandProxy0</proxy>
+            </bone>
+         </node>
+         <node>
+            <bone name="ThumbProx.R" version="1">
+               <ogre_name>ThumbProx.R</ogre_name>
+               <proxy>RightHandProxy0</proxy>
+            </bone>
+         </node>
+      </skeleton>
+   </elements>
+</configuration>
+
