@@ -38,9 +38,10 @@ VRJOgreDummyApp::contextInit(void)
     VRJOgreApp::contextInit();
 
     Ogre::ResourceGroupManager* rgm = Ogre::ResourceGroupManager::getSingletonPtr();
-    rgm->addResourceLocation("../data", "FileSystem");
+    rgm->addResourceLocation("../data/Sinbad.zip", "Zip");
+    rgm->initialiseAllResourceGroups();
 
-    Ogre::Entity*    entity = sm_->createEntity("Head", "ogrehead.mesh");
+    Ogre::Entity*    entity = sm_->createEntity("Sinbad", "Sinbad.mesh");
     Ogre::SceneNode* node   = sm_->getRootSceneNode()->createChildSceneNode();
 
     node->attachObject(entity);
