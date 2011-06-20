@@ -8,6 +8,7 @@ SET(SRC)
 LIST(APPEND SRC "main.cpp")
 LIST(APPEND SRC "OgreUtils.cpp")
 LIST(APPEND SRC "SkeletonMapper.cpp")
+LIST(APPEND SRC "Trace.cpp")
 LIST(APPEND SRC "VRJOgreApp.cpp")
 LIST(APPEND SRC "VRJOgreDummyApp.cpp")
 

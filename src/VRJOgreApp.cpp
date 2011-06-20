@@ -18,6 +18,9 @@
 
 #include <OgreUtils.hpp>
 
+#define ENABLE_TRACE
+#include <Trace.hpp>
+
 namespace
 {
     vpr::DebugCategory const vprDBG_OGRE     (vpr::GUID("f4847549-1eb7-42c5-8c7a-d8092df89fa5"),
@@ -78,11 +81,14 @@ namespace
 /* virtual */ void
 VRJOgreApp::init(void)
 {
+    TRACE_FUNC;
 }
 
 /* virtual */ void
 VRJOgreApp::apiInit(void)
 {
+    TRACE_FUNC;
+
     // setup logging
     Ogre::LogManager* logMgr = new Ogre::LogManager();
     Ogre::Log*        log    = logMgr->createLog(ogreLogName, true, false, false);
@@ -92,6 +98,8 @@ VRJOgreApp::apiInit(void)
 /* virtual */ void
 VRJOgreApp::contextInit(void)
 {
+    TRACE_FUNC;
+
     root_ = new Ogre::Root(pluginsConfigFile_);
 
     Ogre::RenderSystem* rsGL = root_->getRenderSystemByName(ogreRenderSystem);
@@ -208,6 +216,8 @@ VRJOgreApp::postFrame(void)
 /* virtual */ void
 VRJOgreApp::contextClose(void)
 {
+    TRACE_FUNC;
+
     ContextInfo* ctxInfo = &(*contextInfo_);
 
     root_->destroyRenderTarget(ctxInfo->win_);
@@ -236,6 +246,8 @@ VRJOgreApp::getDrawScaleFactor(void)
 /* virtual */ bool
 VRJOgreApp::configCanHandle(jccl::ConfigElementPtr cfg)
 {
+    TRACE_FUNC;
+
     bool result(false);
 
     if(cfg->getID() == "vrjogreapp")
@@ -252,16 +264,20 @@ VRJOgreApp::VRJOgreApp(vrj::Kernel* kernel)
       root_             (NULL),
       sm_               (NULL)
 {
+    TRACE_FUNC;
 }
 
 /* virtual */
 VRJOgreApp::~VRJOgreApp(void)
 {
+    TRACE_FUNC;
 }
 
 /* virtual */ bool
 VRJOgreApp::configAdd(jccl::ConfigElementPtr cfg)
 {
+    TRACE_FUNC;
+
     bool result(true);
 
     pluginsConfigFile_ = cfg->getProperty<std::string>("plugins_config");
@@ -272,5 +288,7 @@ VRJOgreApp::configAdd(jccl::ConfigElementPtr cfg)
 /* virtual */ bool
 VRJOgreApp::configRemove(jccl::ConfigElementPtr cfg)
 {
+    TRACE_FUNC;
+
     return false;
 }

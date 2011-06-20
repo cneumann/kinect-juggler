@@ -12,6 +12,10 @@ class VRJOgreDummyApp : public VRJOgreApp
 
     virtual void contextInit(void);
     virtual void draw       (void);
+
+    virtual bool configCanHandle(jccl::ConfigElementPtr element);
+    virtual bool configAdd      (jccl::ConfigElementPtr element);
+    virtual bool configRemove   (jccl::ConfigElementPtr element);
 };
 
 #endif // VRJOGREDUMMYAPP_HPP_GUARD
