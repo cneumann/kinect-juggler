@@ -3,9 +3,15 @@
 
 // system header
 
+#include <jccl/Config/ConfigElement.h>
+
 #include <OGRE/OgreBone.h>
 
 // project header
+
+#define ENABLE_TRACE
+#include <Trace.hpp>
+
 
 /* explicit */
 SkeletonMapper::SkeletonMapper(Ogre::Skeleton* skel)
@@ -14,6 +20,7 @@ SkeletonMapper::SkeletonMapper(Ogre::Skeleton* skel)
       positions_                (),
       boneProxyNames_           ()
 {
+    TRACE_FUNC;
 }
 
 void
@@ -44,17 +51,27 @@ SkeletonMapper::apply(void)
     }
 }
 
+/* static */ bool
+SkeletonMapper::classConfigCanHandle(jccl::ConfigElementPtr element)
+{
+    TRACE_FUNC;
+
+    return element->getID() == "skeleton";
+}
+
 /* virtual */ bool
 SkeletonMapper::configCanHandle(jccl::ConfigElementPtr element)
 {
-    // XXX TODO: recognize config element
+    TRACE_FUNC;
 
-    return false;
+    return classConfigCanHandle(element);
 }
 
 /* virtual */ bool
 SkeletonMapper::configAdd(jccl::ConfigElementPtr element)
 {
+    TRACE_FUNC;
+
     // XXX TODO: evaluate configuration
     //           should map OpenNI joint -> OGRE bone handle, store in jointMap_
 
@@ -64,6 +81,8 @@ SkeletonMapper::configAdd(jccl::ConfigElementPtr element)
 /* virtual */ bool
 SkeletonMapper::configRemove(jccl::ConfigElementPtr element)
 {
+    TRACE_FUNC;
+
     // XXX TODO: clear jointMap_ ?
 
     return false;
@@ -96,7 +115,7 @@ SkeletonMapper::applyBone(Ogre::Bone* bone)
 void
 SkeletonMapper::initJointMap(void)
 {
-    // clear previos position proxies
+    // clear previous position proxies
     PositionMap::iterator pmIt  = positions_.begin();
     PositionMap::iterator pmEnd = positions_.end  ();
 

@@ -25,9 +25,10 @@ class SkeletonMapper : public jccl::ConfigElementHandler
 
     void apply(void);
 
-    virtual bool configCanHandle(jccl::ConfigElementPtr element);
-    virtual bool configAdd      (jccl::ConfigElementPtr element);
-    virtual bool configRemove   (jccl::ConfigElementPtr element);
+    static  bool classConfigCanHandle(jccl::ConfigElementPtr element);
+    virtual bool configCanHandle     (jccl::ConfigElementPtr element);
+    virtual bool configAdd           (jccl::ConfigElementPtr element);
+    virtual bool configRemove        (jccl::ConfigElementPtr element);
 
   protected:
     typedef std::tr1::unordered_map<std::string, gadget::PositionInterface*> PositionMap;
