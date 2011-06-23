@@ -3,6 +3,7 @@
 #define SKELETONMAPPER_HPP_GUARD
 
 #include <gadget/Type/PositionInterface.h>
+#include <jccl/Config/ConfigElement.h>
 
 #include <OGRE/OgreSkeleton.h>
 
@@ -18,7 +19,7 @@ namespace Ogre
 class SkeletonMapper : public jccl::ConfigElementHandler
 {
   public:
-    explicit SkeletonMapper(Ogre::Skeleton* skel);
+    explicit SkeletonMapper();
 
     void            setSkeleton(Ogre::Skeleton* skel);
     Ogre::Skeleton* getSkeleton(void                );

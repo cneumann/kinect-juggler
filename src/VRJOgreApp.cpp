@@ -249,7 +249,6 @@ VRJOgreApp::configCanHandle(jccl::ConfigElementPtr cfg)
     TRACE_FUNC;
 
     bool result(false);
-
     if(cfg->getID() == "vrjogreapp")
         result = true;
 
@@ -279,7 +278,6 @@ VRJOgreApp::configAdd(jccl::ConfigElementPtr cfg)
     TRACE_FUNC;
 
     bool result(true);
-
     pluginsConfigFile_ = cfg->getProperty<std::string>("plugins_config");
 
     return result;

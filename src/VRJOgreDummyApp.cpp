@@ -19,7 +19,8 @@
 
 /* explicit */
 VRJOgreDummyApp::VRJOgreDummyApp(vrj::Kernel* kernel)
-    : VRJOgreApp(kernel)
+    : VRJOgreApp(kernel),
+      sklMap_  (NULL)
 {
     TRACE_FUNC;
 }
@@ -45,6 +46,16 @@ VRJOgreDummyApp::contextInit(void)
     Ogre::SceneNode* node   = sm_->getRootSceneNode()->createChildSceneNode();
 
     node->attachObject(entity);
+    
+    if( sklMap_ != NULL)
+    {
+      sklMap_->setSkeleton(entity->getSkeleton());
+    }
+}
+
+/* virtual */ void
+VRJOgreDummyApp::preFrame(void)
+{
 }
 
 /* virtual */ void
@@ -53,14 +64,41 @@ VRJOgreDummyApp::draw(void)
     VRJOgreApp::draw();
 }
 
-
-/* virtual */ bool
-VRJOgreDummyApp::configCanHandle(jccl::ConfigElementPtr element)
+/*virtual */ void
+VRJOgreDummyApp::postFrame(void)
 {
-    TRACE_FUNC_MSG(element->getID());
+  if(sklMap_ != NULL)
+  {
+    sklMap_->apply();
+    Ogre::Entity* entity = sm_->getEntity("Head");
+    Ogre::Skeleton* skel = entity->getSkeleton();
+    Ogre::Skeleton::BoneIterator bIt = skel->getBoneIterator();
 
-    return VRJOgreApp::configCanHandle(element) ||
-           SkeletonMapper::classConfigCanHandle(element);
+    for(bIt.begin(); bIt.hasMoreElements(); bIt.moveNext())
+    { 
+      std::string      name;
+      Ogre::Quaternion orientation;
+      Ogre::Vector3    position;
+      name        = (*bIt.current())->getName();
+      orientation = (*bIt.current())->getOrientation();
+      position    = (*bIt.current())->getPosition();
+#if 1 
+      if ( name == "Root" )
+      {
+        printf("bone2.......[%s]\nposition2...[%f,%f,%f]\norientation2[%f,%f,%f,%f]\n",
+                    name.c_str(),
+                    position.x,
+                    position.y,
+                    position.z,
+                    orientation.w,
+                    orientation.x,
+                    orientation.y,
+                    orientation.z);
+      }
+#endif
+            
+    }
+  }
 }
 
 /* virtual */ bool
@@ -76,6 +114,15 @@ VRJOgreDummyApp::configAdd(jccl::ConfigElementPtr element)
     }
 
     return result;
+}
+
+/* virtual */ bool
+VRJOgreDummyApp::configCanHandle(jccl::ConfigElementPtr element)
+{
+    TRACE_FUNC_MSG(element->getID());
+
+    return VRJOgreApp::configCanHandle(element) ||
+           SkeletonMapper::classConfigCanHandle(element);
 }
 
 /* virtual */ bool

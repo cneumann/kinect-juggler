@@ -1,5 +1,6 @@
 
 #include "SkeletonMapper.hpp"
+#include "OgreUtils.hpp"
 
 // system header
 
@@ -14,9 +15,9 @@
 
 
 /* explicit */
-SkeletonMapper::SkeletonMapper(Ogre::Skeleton* skel)
+SkeletonMapper::SkeletonMapper()
     : jccl::ConfigElementHandler(),
-      skel_                     (skel),
+      skel_                     (),
       positions_                (),
       boneProxyNames_           ()
 {
@@ -27,14 +28,24 @@ void
 SkeletonMapper::setSkeleton(Ogre::Skeleton* skel)
 {
     skel_ = Ogre::SkeletonPtr(skel);
+    printf("objectName[%s]\n",skel_->getName().c_str());
+    Ogre::Skeleton::BoneIterator bIt = skel_->getBoneIterator();
 
+    for(bIt.begin(); bIt.hasMoreElements(); bIt.moveNext())
+    {
+            (*bIt.current())->setManuallyControlled(true);
+            (*bIt.current())->setInheritOrientation(false);
+            //bIt.current()->resetOrientation();
+            //(*bIt.current())->setInitialState();
+    }
+    
     initJointMap();
 }
 
 Ogre::Skeleton*
 SkeletonMapper::getSkeleton(void)
 {
-    return skel_.get();
+  return skel_.get();
 }
 
 void
@@ -72,10 +83,25 @@ SkeletonMapper::configAdd(jccl::ConfigElementPtr element)
 {
     TRACE_FUNC;
 
-    // XXX TODO: evaluate configuration
-    //           should map OpenNI joint -> OGRE bone handle, store in jointMap_
-
-    return false;
+    // should map OpenNI joint -> OGRE bone handle, store in jointMap_
+    std::string ogreKey("ogre_name");
+    std::string proxyKey("proxy");
+    std::vector<jccl::ConfigElementPtr> childElements = 
+                                             element->getChildElements();
+    
+    for ( std::vector<jccl::ConfigElementPtr>::iterator elmIt = 
+                                             childElements.begin(); 
+          elmIt != childElements.end(); 
+          ++elmIt ) 
+    {
+      for ( int i = 0; i < (*elmIt)->getNum(ogreKey); ++i )
+      {
+        boneProxyNames_.insert(BoneProxyNameMap::value_type(
+                          (*elmIt)->getProperty<std::string>(ogreKey, i),
+                          (*elmIt)->getProperty<std::string>(proxyKey, i)));
+      }
+    }
+    return true;
 }
 
 /* virtual */ bool
@@ -99,8 +125,35 @@ SkeletonMapper::applyBone(Ogre::Bone* bone)
 
         if(pmIt != positions_.end())
         {
-            // XXX TODO
-            // read value from (*pmIt).second and write to bone
+            Ogre::Vector3    jtPosition;
+            Ogre::Vector3    jtScale;
+            Ogre::Quaternion jtOrientation;
+            Ogre::Matrix4    jtMatrix = 
+                            MatrixUtils::fromGMTL((*(*pmIt).second)->getData(gadget::PositionUnitConversion::ConvertToMeters));
+            
+            jtMatrix.decomposition(jtPosition,jtScale,jtOrientation);
+            
+            bone->resetOrientation();     
+            jtOrientation = bone->convertWorldToLocalOrientation(jtOrientation);
+            bone->setOrientation(jtOrientation); 
+
+            if(bone->getName() == std::string("Root"))
+            {
+              bone->setPosition(jtPosition);
+#if 1            
+            printf("bone........[%s]\nposition....[%f,%f,%f]\norientation.[%f,%f,%f,%f]\n",
+                    bone->getName().c_str(),
+                    jtPosition.x,
+                    jtPosition.y,
+                    jtPosition.z,
+                    jtOrientation.w,
+                    jtOrientation.x,
+                    jtOrientation.y,
+                    jtOrientation.z);
+#endif
+            }
+            
+
         }
     }
 
@@ -133,6 +186,7 @@ SkeletonMapper::initJointMap(void)
 
     for(; bpnIt != bpnEnd; ++bpnIt)
     {
+        printf("loading[%s]\n",(*bpnIt).second.c_str());
         positions_.insert(PositionMap::value_type((*bpnIt).second, NULL));
     }
 
@@ -143,5 +197,6 @@ SkeletonMapper::initJointMap(void)
     for(; pmIt != pmEnd; ++pmIt)
     {
         (*pmIt).second = new gadget::PositionInterface();
+        ((*pmIt).second)->init((*pmIt).first);
     }
 }

@@ -3,6 +3,7 @@
 #define VRJOGREDUMMYAPP_HPP_GUARD
 
 #include "VRJOgreApp.hpp"
+#include "SkeletonMapper.hpp"
 
 class VRJOgreDummyApp : public VRJOgreApp
 {
@@ -10,12 +11,18 @@ class VRJOgreDummyApp : public VRJOgreApp
     explicit  VRJOgreDummyApp(vrj::Kernel* kernel);
     virtual  ~VRJOgreDummyApp(void               );
 
-    virtual void contextInit(void);
-    virtual void draw       (void);
+    virtual void contextInit    (void);
+    virtual void preFrame       (void);
+    virtual void draw           (void);
+    virtual void postFrame      (void);
 
-    virtual bool configCanHandle(jccl::ConfigElementPtr element);
-    virtual bool configAdd      (jccl::ConfigElementPtr element);
+    virtual bool configCanHandle(jccl::ConfigElementPtr cfg);  
+    virtual bool configAdd      (jccl::ConfigElementPtr element);  
     virtual bool configRemove   (jccl::ConfigElementPtr element);
+
+  private:
+    SkeletonMapper  *sklMap_;
+    
 };
 
 #endif // VRJOGREDUMMYAPP_HPP_GUARD
