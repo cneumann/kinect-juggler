@@ -4,7 +4,7 @@
    <definition_version version="1" label="Skeleton">
       <abstract>false</abstract>
       <help />
-      <category>/</category>
+      <category>/Application</category>
       <property valuetype="configelement" variable="true" name="node">
          <help />
          <value label="Bone" />
