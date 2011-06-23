@@ -146,7 +146,13 @@ macro(_flagpoll_invoke _pkglist _prefix _varname _regexp)
       string(REGEX REPLACE "${_regexp}" " " _flagpoll_invoke_result "${_flagpoll_invoke_result}")
     endif(NOT ${_regexp} STREQUAL "")
 
-    separate_arguments(_flagpoll_invoke_result)
+
+    IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6 )
+      set(temp_flagpoll_invoke_result ${_flagpoll_invoke_result} )
+      separate_arguments(_flagpoll_invoke_result UNIX_COMMAND ${temp_flagpoll_invoke_result} )
+    ELSE ()
+      separate_arguments(_flagpoll_invoke_result)
+    ENDIF ()
 
     #message(STATUS "  ${_varname} ... ${_flagpoll_invoke_result}")
     set(_flagpoll_${_varname} ${_flagpoll_invoke_result})
